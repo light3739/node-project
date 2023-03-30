@@ -2,12 +2,11 @@ pipeline{
  agent any
 
  stages {
-        stage("init") {
-            steps {
-                script {
-                    sh "echo 123"
-                }
-            }
-        }
+ stage('Build') {
+      steps {
+        sh 'npm install'
+        sh 'npm run test'
+      }
+    }
  }
 }
