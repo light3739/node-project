@@ -4,7 +4,7 @@ pipeline{
     nodejs 'node'
   }
  stages {
- stage('Build') {
+ stage('Install') {
       steps {
         dir('app') {
           sh 'npm install'
@@ -18,10 +18,10 @@ pipeline{
         }
       }
    }
- stage('Deploy'){
+ stage('Increment version'){
        steps{
          dir('app'){
-           sh 'echo "success"'
+           sh 'npm version patch'
          }
        }
     }
