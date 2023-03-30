@@ -33,12 +33,12 @@ pipeline{
 
  stage('Commit'){
        steps{
-         withCredentials([usernamePassword(credentialsId: 'github-auth', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+          withCredentials([string(credentialsId: 'github-token', variable: 'TOKEN')]) {
             sh "git config --global user.email 'jenkins@example.com'"
             sh "git config --global user.name 'Jenkins'"
             sh "git add ."
             sh "git commit -m 'Commit message'"
-            sh "git push origin HEAD:main "
+            sh "git push -u origin HEAD:main -f -o ci.skip -o 'merge_request.create=false'"
        }
     }
   }
