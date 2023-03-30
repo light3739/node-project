@@ -8,7 +8,6 @@ pipeline{
       steps {
         dir('/app') {
           sh 'npm install'
-          sh 'npm run build'
         }
       }
     }
