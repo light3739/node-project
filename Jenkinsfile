@@ -38,7 +38,7 @@ pipeline{
             sh "git config --global user.name 'Jenkins'"
             sh "git add ."
             sh "git commit -m 'Commit message'"
-            sh "git push origin master "
+            sh "git push origin main "
        }
     }
   }
