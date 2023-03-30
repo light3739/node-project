@@ -38,7 +38,7 @@ pipeline{
             sh "git config --global user.name 'Jenkins'"
             sh "git add ."
             sh "git commit -m 'Commit message'"
-            sh "git push -u origin HEAD:main -f -o ci.skip -o 'merge_request.create=false'"
+            sh "git push -u origin HEAD"
        }
     }
   }
