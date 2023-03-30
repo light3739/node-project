@@ -18,5 +18,12 @@ pipeline{
         }
       }
    }
+ stage('Deploy'){
+       steps{
+         dir('app'){
+           sh 'echo "success"'
+         }
+       }
+    }
  }
 }
