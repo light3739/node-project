@@ -11,5 +11,12 @@ pipeline{
         }
       }
     }
+ stage('Test'){
+      steps{
+        dir('app'){
+          sh 'npm test'
+        }
+      }
+   }
  }
 }
