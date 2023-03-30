@@ -5,3 +5,6 @@ test('main index.html file exists', () => {
   const filePath = path.join(__dirname, "index.html")
   expect(fs.existsSync(filePath)).toBeTruthy();
 });
+test('1==0', () => {
+  expect(1===0, true);
+});
