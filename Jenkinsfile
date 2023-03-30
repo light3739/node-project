@@ -38,7 +38,7 @@ pipeline{
             sh "git config --global user.name 'Jenkins'"
             sh "git add ."
             sh "git commit -m 'Commit message'"
-            sh "git push -u origin HEAD"
+            sh "git push https://github.com/light3739/node-project?github-token=${TOKEN}"
        }
     }
   }
