@@ -1,9 +1,14 @@
 pipeline{
  agent any
   tools {
-    nodejs 'node'
+    nodejs 'node' //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
   }
  stages {
+  stage('Checkout') {
+      steps {
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/light3739/node-project.git']]])
+      }
+     }
  stage('Install') {
       steps {
         dir('app') {
@@ -33,7 +38,7 @@ pipeline{
             sh "git config --global user.name 'Jenkins'"
             sh "git add ."
             sh "git commit -m 'Commit message'"
-            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/light3739/node-project.git HEAD:main "
+            sh "git push origin master "
        }
     }
   }
