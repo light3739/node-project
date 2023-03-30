@@ -6,8 +6,10 @@ pipeline{
  stages {
  stage('Build') {
       steps {
-        sh 'npm install'
-        sh 'npm run test'
+        dir('/app') {
+          sh 'npm install'
+          sh 'npm run build'
+        }
       }
     }
  }
