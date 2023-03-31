@@ -33,7 +33,7 @@ pipeline{
 
  stage('Commit'){
        steps{
-          withCredentials([string(credentialsId: 'github-token', variable: 'TOKEN')]) {
+          withCredentials([string(credentialsId: 'github-auth', variable: 'TOKEN')]) {
             sh "git config --global user.email 'jenkins@example.com'"
             sh "git config --global user.name 'Jenkins'"
             sh "git add ."
