@@ -33,12 +33,12 @@ pipeline{
 
  stage('Commit'){
        steps{
-          withCredentials([string(credentialsId: 'github-auth', variable: 'TOKEN')]) {
-            sh "git config --global user.email 'jenkins@example.com'"
-            sh "git config --global user.name 'Jenkins'"
-            sh "git add ."
-            sh "git commit -m 'Commit message'"
-            sh "git push https://github.com/light3739/node-project?github-token=${TOKEN} HEAD:main"
+            withCredentials([usernamePassword(credentialsId: 'github-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          sh 'git config --global user.email "jenkins@example.com"'
+          sh 'git config --global user.name "Jenkins"'
+          sh 'git add .'
+          sh 'git commit -m "Jenkins build"'
+          sh 'git push https://${USERNAME}:${PASSWORD}@github.com/light3739/node-project.git HEAD:main'
        }
     }
   }
