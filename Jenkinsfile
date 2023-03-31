@@ -4,11 +4,6 @@ pipeline{
     nodejs 'node' 
   }
  stages {
-  stage('Checkout') {
-      steps {
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/light3739/node-project.git']]])
-      }
-     }
  stage('Install') {
       steps {
         dir('app') {
