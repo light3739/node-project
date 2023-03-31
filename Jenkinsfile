@@ -37,5 +37,12 @@ pipeline{
        }
     }
   }
+ stage('Build'){
+        steps{
+            script{
+                cat app/package.json
+            }
+        }
+ }
  }
 }
