@@ -40,7 +40,7 @@ pipeline{
  stage('Build'){
         steps{
             script{
-                  def version = sh(script: "cat app/package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/[\", ]//g'", returnStdout: true).trim()
+                  def version = sh(script: "cat app/package.json | grep version").trim()
                   echo "${version}"
             }
         }
