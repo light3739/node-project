@@ -1,7 +1,7 @@
 pipeline{
  agent any
   tools {
-    nodejs 'node' //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
+    nodejs 'node' 
   }
  stages {
   stage('Checkout') {
