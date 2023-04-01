@@ -45,7 +45,7 @@ stage('Build'){
             echo "${version}"
             script {
                 sh 'docker --version'
-                sh 'docker build -t my-image .'
+                sh "docker build -t my-image:{$version} ."
             }
 
             //def dockerImage = docker.build("my-image:${version}", "--pull")
