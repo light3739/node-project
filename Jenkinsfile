@@ -47,20 +47,19 @@ stage('Build'){
                 sh 'docker --version'
                 sh "docker build -t my-image:${version} ."
             }
-
-            //def dockerImage = docker.build("my-image:${version}", "--pull")
         }
     }
 }
 
  stage("Deploy"){
-        steps{
-        script{
-         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-                    dockerImage.push()
-                  }
+    steps {
+        script {
+            withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
+                sh "docker push my-image:${version}"
             }
         }
+    }
     }
   }
 }
