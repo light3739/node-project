@@ -42,6 +42,7 @@ pipeline{
             script{
                   def version = sh(script: "cat app/package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/[\", ]//g'", returnStdout: true).trim()
                   echo "${version}"
+                  sh 'docker --version'
                   def dockerImage = docker.build("my-image:${version}")
             }
         }
