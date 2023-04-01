@@ -37,7 +37,7 @@ pipeline{
        }
     }
   }
-@Library('docker') _
+
 stage('Build'){
     steps{
         script{
