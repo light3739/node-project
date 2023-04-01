@@ -1,3 +1,4 @@
+def version
 pipeline{
  agent any
   tools {
@@ -41,7 +42,7 @@ pipeline{
 stage('Build'){
     steps{
         script{
-            def version = sh(script: "cat app/package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/[\", ]//g'", returnStdout: true).trim()
+            version = sh(script: "cat app/package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/[\", ]//g'", returnStdout: true).trim()
             echo "${version}"
             script {
                 sh 'docker --version'
