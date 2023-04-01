@@ -45,11 +45,9 @@ stage('Build'){
         script{
             version = sh(script: "cat app/package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/[\", ]//g'", returnStdout: true).trim()
             echo "${version}"
-            def credentials = credentials('docker-hub')
-            def username = credentials.username
-            script {
+            withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                 sh 'docker --version'
-                sh "docker build -t ${username}/my-image:${version} ."
+                sh "docker build -t ${DOCKERHUB_USERNAME}/my-image:${version} ."
             }
         }
     }
@@ -60,7 +58,7 @@ stage('Build'){
         script {
             withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                 sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
-                sh "docker push my-image:${version}"
+                sh "docker push ${DOCKERHUB_USERNAME}/my-image:${version}"
             }
         }
     }
