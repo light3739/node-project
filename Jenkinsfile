@@ -1,4 +1,5 @@
 def version
+
 pipeline{
  agent any
   tools {
@@ -10,11 +11,6 @@ pipeline{
         dir('app') {
           sh 'npm install'
         }
-      }
-      // Define the `username` variable here
-      script {
-          def credentials = credentials('docker-hub')
-          def username = credentials.username
       }
     }
  stage('Test'){
@@ -47,9 +43,10 @@ pipeline{
 stage('Build'){
     steps{
         script{
-            def version = sh(script: "cat app/package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/[\", ]//g'", returnStdout: true).trim()
+            version = sh(script: "cat app/package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/[\", ]//g'", returnStdout: true).trim()
             echo "${version}"
-
+            def credentials = credentials('docker-hub')
+            def username = credentials.username
             script {
                 sh 'docker --version'
                 sh "docker build -t ${username}/my-image:${version} ."
@@ -63,7 +60,7 @@ stage('Build'){
         script {
             withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                 sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
-                sh "docker push ${username}/my-image:${version}"
+                sh "docker push my-image:${version}"
             }
         }
     }
