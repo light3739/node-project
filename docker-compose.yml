@@ -25,7 +25,7 @@ services:
     build: .
     container_name: mynodejsapp
     ports:
-      - "8080:3000"
+      - "8080:8080"
     depends_on:
       - prometheus
       - grafana
