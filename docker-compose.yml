@@ -22,7 +22,7 @@ services:
       - prometheus
 
   mynodejsapp:
-    image: node:latest
+    build: .
     container_name: mynodejsapp
     ports:
       - "8080:3000"
