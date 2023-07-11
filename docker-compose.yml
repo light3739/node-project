@@ -15,11 +15,17 @@ services:
     image: grafana/grafana
     container_name: grafana
     ports:
-      - "3001:3001"
+      - "3000:3000"
     volumes:
       - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
+
+  mynodejsapp:
+    build: .
+    container_name: mynodejsapp
+    ports:
+      - "3001:3001"
 
 volumes:
   grafana-data:
