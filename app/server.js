@@ -19,9 +19,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/profile-picture-andrea', function (req, res) {
-  let img = fs.readFileSync(path.join(__dirname, "images/profile-andrea.jpg"));
-  res.writeHead(200, {'Content-Type': 'image/jpg' });
-  res.end(img, 'binary');
+  fs.readFile(path.join(__dirname, "images/profile-andrea.jpg"), function (err, data) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error reading file");
+    } else {
+      res.writeHead(200, {'Content-Type': 'image/jpg' });
+      res.end(data);
+    }
+  });
 });
 
 app.get('/profile-picture-ari', function (req, res) {
