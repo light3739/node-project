@@ -31,9 +31,14 @@ app.get('/profile-picture-andrea', function (req, res) {
 });
 
 app.get('/profile-picture-ari', function (req, res) {
-  let img = fs.readFileSync(path.join(__dirname, "images/profile-ari.jpeg"));
-  res.writeHead(200, {'Content-Type': 'image/jpg' });
-  res.end(img, 'binary');
+  try {
+    let img = fs.readFileSync(path.join(__dirname, "images/profile-ari.jpeg"));
+    res.writeHead(200, {'Content-Type': 'image/jpg' });
+    res.end(img, 'binary');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error reading file");
+  }
 });
 
 app.get('/metrics', function (req, res) {
@@ -42,6 +47,6 @@ app.get('/metrics', function (req, res) {
   res.end(prometheus.register.metrics());
 });
 
-app.listen(3000, function () {
-  console.log("app listening on port 3000!");
+app.listen(8080, function () {
+  console.log("App listening on port 3000!");
 });
